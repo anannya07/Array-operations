@@ -1,1 +1,153 @@
+#include <iostream>
+using namespace std;
+
+// Function to search an element in the array
+bool searchElement(int A[], int N, int x) {
+    for (int i = 0; i < N; i++) {
+        if (A[i] == x) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Function to insert an element at a specific index in the array
+bool insertElement(int A[], int &N, int y, int k) {
+    if (k < 0 || k > N) {
+        return false; // Invalid index
+    }
+
+    // Shift the elements to the right to accommodate the new element
+    for (int i = N; i >= k; i--) {
+        A[i] = A[i - 1];
+    }
+
+    A[k-1] = y;
+    N++;
+    return true;
+}
+
+// Function to delete an element from the array
+bool deleteElement(int A[], int &N, int z) {
+    int pos = -1;
+
+    // Find the position of the element to be deleted
+    for (int i = 0; i < N; i++) {
+        if (A[i] == z) {
+            pos = i;
+            break;
+        }
+    }
+
+    if (pos == -1) {
+        return false; // Element not found, so nothing to delete
+    }
+
+    // Shift the elements to the left to fill the gap
+    for (int i = pos; i < N - 1; i++) {
+        A[i] = A[i + 1];
+    }
+
+    N--;
+    return true;
+}
+
+// Function to update an element at a specific position in the array
+bool updateElement(int A[], int N, int x, int k) {
+    if (k < 0 || k >= N) {
+        return false; // Invalid index
+    }
+
+    A[k-1] = x;
+    return true;
+}
+
+// Function to display all elements of the array
+void displayElement(int A[], int N) {
+    for (int i = 0; i < N; i++) {
+        cout << A[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    int A[100], N ;
+    int choice, x, y, k, z,n;
+     cout<<"Enter the number of elements you want:";
+        cin>>N;
+        cout<<"Enter the elements:";
+        for(int i=0;i<N;++i){
+        	cin>>A[i];
+		}
+
+    do {
+        cout << "Menu:" << endl;
+        cout << "1. Search an element" << endl;
+        cout << "2. Insert an element" << endl;
+        cout << "3. Delete an element" << endl;
+        cout << "4. Update an element" << endl;
+        cout << "5. Display all elements" << endl;
+        cout << "6. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+       
+
+        switch (choice) {
+        case 1:
+            cout << "Enter the element to search: ";
+            cin >> x;
+            if (searchElement(A, N, x)) {
+                cout << "Element " << x << " is present in the array." << endl;
+            } else {
+                cout << "Element " << x << " is not present in the array." << endl;
+            }
+            break;
+        case 2:
+            cout << "Enter the element to insert: ";
+            cin >> y;
+            cout << "Enter the position where the element should be inserted: ";
+            cin >> k;
+            if (insertElement(A, N, y, k)) {
+                cout << "Element " << y << " inserted successfully at index " << k << "." << endl;
+            } else {
+                cout << "Invalid index. Element not inserted." << endl;
+            }
+            break;
+        case 3:
+            cout << "Enter the element to delete: ";
+            cin >> z;
+           if(deleteElement(A, N, z)){
+            cout << "Element " << z << " deleted from the array." << endl;
+       		 }
+       		else{
+       			cout<<"Element"<< z <<"Not found"<<endl;
+			   }
+        	
+            break;
+        case 4:
+            cout << "Enter the position to update: ";
+            cin >> k;
+            cout << "Enter the new value: ";
+            cin >> x;
+            if (updateElement(A, N, x, k)) {
+                cout << "Element at position " << k << " updated successfully." << endl;
+            } else {
+                cout << "Invalid position. Element not updated." << endl;
+            }
+            break;
+        case 5:
+            cout << "Array elements: ";
+            displayElement(A, N);
+            break;
+        case 6:
+            cout << "Exiting..." << endl;
+            break;
+        default:
+            cout << "Invalid choice. Please try again." << endl;
+        }
+
+    } while (choice != 6);
+
+    return 0;
+}
 
